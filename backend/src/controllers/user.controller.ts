@@ -2,6 +2,16 @@ import { Request, Response } from "express";
 import { CreateUserDto, CreateUserSchema } from "../dtos/CreateUser.dto";
 import userModel from "../models/User.model";
 import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken";
+
+// Create Token
+const createToken = (id: string): string => {
+    const secret = process.env.JWT_SECRET
+    if(!secret){
+        throw new Error("JWT_SECRET is not defined in environment variables")
+    }
+    return jwt.sign({id}, secret);
+}
 
 // Route for user login
 const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): Promise<Response> => {
@@ -27,6 +37,8 @@ const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): 
         })
 
         const user = await newUser.save();
+
+        const token = await createToken(user._id);
 
         return res.status(200).json({
             success: true,
