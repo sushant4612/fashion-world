@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CreateUserDto, CreateUserSchema } from "../dtos/createUser.dto";
+import { CreateUserDto, CreateUserSchema } from "../dtos/CreateUser.dto";
 import userModel from "../models/User.model";
 import bcrypt from 'bcrypt'
 
