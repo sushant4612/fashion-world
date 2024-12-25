@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { CreateUserDto, CreateUserSchema } from "../dtos/CreateUser.dto";
 import userModel from "../models/User.model";
 import bcrypt from 'bcrypt'
@@ -13,11 +13,10 @@ const createToken = (id: string): string => {
     return jwt.sign({id}, secret);
 }
 
-// Route for user login
-const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): Promise<Response> => {
+// Route for user register
+const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): Promise<any> => {
     try {
         const {name, email, password } = CreateUserSchema.parse(req.body);
-
 
         const exists = await userModel.findOne({email});
         if(exists){
@@ -38,10 +37,11 @@ const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): 
 
         const user = await newUser.save();
 
-        const token = await createToken(user._id);
+        const token = createToken(user._id);
 
         return res.status(200).json({
             success: true,
+            token
         })
 
     } catch (error: any) {
@@ -53,7 +53,12 @@ const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): 
     }
 }
 
-// Route for user register
+// Route for user login
 
 
 // Route for admin login
+
+
+export  {
+    registerUser
+}
