@@ -1,4 +1,4 @@
-import { Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { CreateUserDto, CreateUserSchema } from "../dtos/CreateUser.dto";
 import userModel from "../models/User.model";
 import bcrypt from 'bcrypt'
@@ -16,7 +16,7 @@ const createToken = (id: string): string => {
 }
 
 // Route for user register
-const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): Promise<any> => {
+const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response, next: NextFunction): Promise<any> => {
     try {
         const {name, email, password } = CreateUserSchema.parse(req.body);
 
@@ -42,7 +42,7 @@ const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response): 
 
     } catch (error: any) {
         console.log(error);
-        throw new ApiError(404, error.message)
+        next(error)
     }
 }
 

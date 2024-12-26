@@ -5,6 +5,7 @@ import connectDb from "./config/mongodb";
 import cloudinaryConnect from "./config/cloudinary";
 import userRouter from "./routes/user.route";
 import morgan from "morgan";
+import errorHandler from "./middlewares/error.middleware";
 
 //App Config
 dotenv.config()
@@ -30,6 +31,8 @@ app.use('/api/user', userRouter)
 app.get("/", (req, res) => {
     res.send("Api Working")
 });
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
     console.log(`App is listening at port http://localhost:${PORT} `);

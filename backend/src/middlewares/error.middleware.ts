@@ -7,7 +7,7 @@ const errorHandler = (
   req: Request,
   res: Response,
   next: NextFunction
-): Response => {
+): any => {
   let error = err;
 
   if (!(error instanceof ApiError)) {
