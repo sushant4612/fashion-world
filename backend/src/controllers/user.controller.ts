@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
 import ApiError from "../utils/ApiError";
 import ApiResponse from "../utils/ApiResponse";
+import { LoginUserDto, LoginUserSchema } from "../dtos/LoginUser.dto";
 
 // Create Token
 const createToken = (id: string): string => {
@@ -46,9 +47,24 @@ const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response, n
 }
 
 // Route for user login
-const login = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const login = async (req: Request<{},{},LoginUserDto>, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
+        const {email, password} = LoginUserSchema.parse(req.body);
+
+        const user = await userModel.findOne({email});
+
+        if(!user){
+            throw new ApiError(400, "User doesn't exists");
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if(isMatch){
+            const token = createToken(user._id);
+            return res.status(200).json(new ApiResponse(200, token, "Login successfully"))
+        }else{
+            throw new ApiError(400, "Invalid credentials");
+        }
     } catch (error) {
         next(error);
     }
