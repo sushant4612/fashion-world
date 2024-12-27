@@ -41,17 +41,26 @@ const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response, n
         return res.status(200).json(new ApiResponse(200, token, "User registered successfully "))
 
     } catch (error: any) {
-        console.log(error);
         next(error)
     }
 }
 
 // Route for user login
-
+const login = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+    try {
+        
+    } catch (error) {
+        next(error);
+    }
+} 
 
 // Route for admin login
-
+const adminLogin = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+    
+} 
 
 export  {
-    registerUser
+    registerUser,
+    login,
+    adminLogin
 }
