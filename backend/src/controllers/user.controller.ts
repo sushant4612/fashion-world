@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
 import ApiError from "../utils/ApiError";
 import ApiResponse from "../utils/ApiResponse";
-import { LoginUserDto, LoginUserSchema } from "../dtos/LoginUser.dto";
+import { LoginDto, LoginSchema} from "../dtos/Login.dto";
 
 // Create Token
 const createToken = (id: string): string => {
@@ -47,9 +47,9 @@ const registerUser = async (req: Request<{},{}, CreateUserDto>, res: Response, n
 }
 
 // Route for user login
-const login = async (req: Request<{},{},LoginUserDto>, res: Response, next: NextFunction): Promise<any> => {
+const login = async (req: Request<{},{},LoginDto>, res: Response, next: NextFunction): Promise<any> => {
     try {
-        const {email, password} = LoginUserSchema.parse(req.body);
+        const {email, password} = LoginSchema.parse(req.body);
 
         const user = await userModel.findOne({email});
 
@@ -63,7 +63,7 @@ const login = async (req: Request<{},{},LoginUserDto>, res: Response, next: Next
             const token = createToken(user._id);
             return res.status(200).json(new ApiResponse(200, token, "Login successfully"))
         }else{
-            throw new ApiError(400, "Invalid credentials");
+            throw new ApiError(404, "Invalid credentials");
         }
     } catch (error) {
         next(error);
@@ -71,8 +71,24 @@ const login = async (req: Request<{},{},LoginUserDto>, res: Response, next: Next
 } 
 
 // Route for admin login
-const adminLogin = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-    
+const adminLogin = async (req: Request<{},{}, LoginDto>, res: Response, next: NextFunction): Promise<any> => {
+    try {
+        const {email, password} = LoginSchema.parse(req.body);
+        
+        console.log(email, password, process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD);
+        if(email == process.env.ADMIN_EMAIL && password == process.env.ADMIN_PASSWORD){
+            if(!process.env.JWT_SECRET){
+                throw new ApiError(404, "JWT_SECRET is not defined in environment variables");
+            }
+            const secret: string = process.env.JWT_SECRET;
+            const token = jwt.sign(email + password, secret);
+            return res.status(200).json(new ApiResponse(200, token, "Login successfully"));
+        }else{
+            throw new ApiError(404, "Invalid credentials");
+        }
+    } catch (error) {
+        next(error);
+    }
 } 
 
 export  {
