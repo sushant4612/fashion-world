@@ -3,6 +3,7 @@ import AddToCartDto from "../dtos/AddCart.dto";
 import userModel from "../models/User.model";
 import CartData from "../types/CartData";
 import ApiResponse from "../utils/ApiResponse";
+import UpdateCartDto from "../dtos/UpdateCart.dto";
 
 // Add Product to Cart
 const addToCart = async (req: Request<{},{}, AddToCartDto>, res: Response, next: NextFunction): Promise<any> => {
@@ -30,9 +31,18 @@ const addToCart = async (req: Request<{},{}, AddToCartDto>, res: Response, next:
 }
 
 // Update Cart
-const updateCart = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const updateCart = async (req: Request<{},{}, UpdateCartDto>, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
+        const {userId, itemId, size, quantity} = req.body;
+
+        const userData = await userModel.findById(userId);
+        const cartData: CartData = await userData.cartData;
+
+        cartData[itemId][size] = quantity
+
+        await userModel.findByIdAndUpdate(userId, {cartData})
+
+        return res.status(201).json(new ApiResponse(201,{}, "Cart Updated"));
     } catch (error) {
         next(error)
     }
