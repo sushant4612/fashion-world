@@ -60,3 +60,5 @@ const getUserCart = async (req: Request<{},{}, {userId: string}>, res: Response,
         next(error)
     }
 }
+
+export {addToCart, updateCart, getUserCart};
