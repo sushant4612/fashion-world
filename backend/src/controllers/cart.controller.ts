@@ -49,9 +49,13 @@ const updateCart = async (req: Request<{},{}, UpdateCartDto>, res: Response, nex
 }
 
 // Get User Cart
-const getUserCart = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const getUserCart = async (req: Request<{},{}, {userId: string}>, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
+        const {userId} = req.body;
+        const userData = await userModel.findById(userId);
+        const cartData = await userData.cartData;
+
+        return res.status(200).json(new ApiResponse(200, cartData, "Cart Data Sent"))
     } catch (error) {
         next(error)
     }
