@@ -23,8 +23,8 @@ const addToCart = async (req: Request<{},{}, AddToCartDto>, res: Response, next:
             cartData[itemId][size] = 1;
         }
 
-        await userModel.findByIdAndUpdate(userId, cartData)
-        return res.status(201).json(new ApiResponse(201,{}, "Added To Cart"));
+        await userModel.findByIdAndUpdate(userId, {cartData})
+        return res.status(201).json(new ApiResponse(201,{cartData}, "Added To Cart"));
     } catch (error) {
         next(error)
     }
@@ -55,7 +55,7 @@ const getUserCart = async (req: Request<{},{}, {userId: string}>, res: Response,
         const userData = await userModel.findById(userId);
         const cartData = await userData.cartData;
 
-        return res.status(200).json(new ApiResponse(200, cartData, "Cart Data Sent"))
+        return res.status(200).json(new ApiResponse(200, {cartData}, "Cart Data Sent"))
     } catch (error) {
         next(error)
     }
