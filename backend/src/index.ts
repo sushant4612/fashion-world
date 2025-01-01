@@ -6,6 +6,7 @@ import cloudinaryConnect from "./config/cloudinary";
 import userRouter from "./routes/user.route";
 import morgan from "morgan";
 import errorHandler from "./middlewares/error.middleware";
+import cartRouter from "./routes/cart.route";
 
 //App Config
 dotenv.config()
@@ -27,6 +28,7 @@ app.use(cors({
 
 //routes
 app.use('/api/user', userRouter)
+app.use('/api/cart', cartRouter);
 
 app.get("/", (req, res) => {
     res.send("Api Working")
