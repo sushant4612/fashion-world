@@ -58,9 +58,10 @@ const listProducts = async (req: Request, res: Response, next: NextFunction):Pro
 }
 
 //Function for remove product
-const removeProducts = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
+const removeProducts = async (req: Request<{},{},{id: string}>, res: Response, next: NextFunction):Promise<any> => {
     try {
-        await productModel.findByIdAndDelete(req.body.id);
+        const {id} = req.body;
+        await productModel.findByIdAndDelete();
         res.status(200).json(new ApiResponse(200,{}, 'Deleted Successfully'))
     } catch (error) {
         next(error);
@@ -68,9 +69,11 @@ const removeProducts = async (req: Request, res: Response, next: NextFunction):P
 }
 
 //Function for single product
-const singleProduct = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
+const singleProduct = async (req: Request<{},{},{productId: string}>, res: Response, next: NextFunction):Promise<any> => {
     try {
-        
+        const { productId } = req.body;
+        const product = await productModel.findById(productId);
+        res.status(200).json(new ApiResponse(200,product, "Data SuccessFully Sent"))
     } catch (error) {
         next(error);
     }
