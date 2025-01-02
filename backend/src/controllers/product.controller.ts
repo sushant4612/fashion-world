@@ -50,7 +50,8 @@ const addProduct = async (req: Request<{},{},AddProductDto>, res: Response, next
 //Function for list all product
 const listProducts = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
-        
+        const products = await productModel.find({});
+        res.status(200).json(new ApiResponse(200, products, "Data SuccessFully Sent"));
     } catch (error) {
         next(error);
     }
@@ -59,7 +60,8 @@ const listProducts = async (req: Request, res: Response, next: NextFunction):Pro
 //Function for remove product
 const removeProducts = async (req: Request, res: Response, next: NextFunction):Promise<any> => {
     try {
-        
+        await productModel.findByIdAndDelete(req.body.id);
+        res.status(200).json(new ApiResponse(200,{}, 'Deleted Successfully'))
     } catch (error) {
         next(error);
     }
