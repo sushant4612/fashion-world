@@ -32,3 +32,6 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction): Promi
         next(error);
      }
 }
+
+
+export default adminAuth
