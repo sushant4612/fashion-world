@@ -7,6 +7,7 @@ import userRouter from "./routes/user.route";
 import morgan from "morgan";
 import errorHandler from "./middlewares/error.middleware";
 import cartRouter from "./routes/cart.route";
+import productRouter from "./routes/product.route";
 
 //App Config
 dotenv.config()
@@ -29,6 +30,7 @@ app.use(cors({
 //routes
 app.use('/api/user', userRouter)
 app.use('/api/cart', cartRouter);
+app.use('/api/product', productRouter);
 
 app.get("/", (req, res) => {
     res.send("Api Working")

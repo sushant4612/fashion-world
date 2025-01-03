@@ -10,4 +10,4 @@ productRouter.route('/remove').post(adminAuth, removeProducts);
 productRouter.route('/single').post(singleProduct);
 productRouter.route('/list').post(listProducts);
 
-export default Router;
+export default productRouter;
