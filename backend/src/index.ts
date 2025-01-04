@@ -10,6 +10,7 @@ import cartRouter from "./routes/cart.route";
 import productRouter from "./routes/product.route";
 import orderRouter from "./routes/order.route";
 
+
 //App Config
 dotenv.config()
 const app = express();
@@ -27,6 +28,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
+
 
 //routes
 app.use('/api/user', userRouter)
