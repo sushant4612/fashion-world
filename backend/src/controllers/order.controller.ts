@@ -97,15 +97,6 @@ const verfifyRazorPay = async (req: Request<{},{},{userId: string, razorpay_orde
 //All Order Data for admin panel
 const allOrders = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
-    } catch (error) {
-        next(error);
-    }
-}
-
-//User Order data for frontend
-const userOrders = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-    try {
         const orders = await orderModel.find({})
         res.status(200).json(new ApiResponse(200, orders, "Success"));
     } catch (error) {
@@ -113,10 +104,23 @@ const userOrders = async (req: Request, res: Response, next: NextFunction): Prom
     }
 }
 
-//Update Order Status from Admin Panel
-const updateStatus = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+//User Order data for frontend
+const userOrders = async (req: Request<{},{},{userId: string}>, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
+        const {userId} = req.body;
+        const order = await orderModel.find({userId})
+        res.status(200).json(new ApiResponse(200, order, "Success"));
+    } catch (error) {
+        next(error);
+    }
+}
+
+//Update Order Status from Admin Panel
+const updateStatus = async (req: Request<{},{}, {orderId: string, status: string}>, res: Response, next: NextFunction): Promise<any> => {
+    try {
+        const {orderId, status} = req.body;
+        await orderModel.findByIdAndUpdate(orderId, { status })
+        res.status(200).json(new ApiResponse(200, {}, "Status Updated"));
     } catch (error) {
         next(error);
     }
