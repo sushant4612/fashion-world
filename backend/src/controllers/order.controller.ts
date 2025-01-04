@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 
 
 //Placing order using COD
-const placeOrder = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const placeOrder = async (req: Request<{},{},{}>, res: Response, next: NextFunction): Promise<any> => {
     try {
         
     } catch (error) {
