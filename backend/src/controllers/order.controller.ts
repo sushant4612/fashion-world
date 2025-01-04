@@ -127,7 +127,7 @@ const updateStatus = async (req: Request<{},{}, {orderId: string, status: string
 }
 
 
-export default {
+export {
     placeOrder,
     placeOrderRazorpay,
     verfifyRazorPay,
