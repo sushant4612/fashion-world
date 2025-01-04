@@ -76,9 +76,19 @@ const placeOrderRazorpay =  async (req: Request<{},{},PlaceOrderDto>, res: Respo
 }
 
 //verfiy razorpay
-const verfifyRazorPay = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const verfifyRazorPay = async (req: Request<{},{},{userId: string, razorpay_order_id: string}>, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
+        const {userId, razorpay_order_id} = req.body
+
+        const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
+        if(orderInfo.status === 'paid'){
+            await orderModel.findByIdAndUpdate(orderInfo.receipt, {payment:true})
+            await userModel.findByIdAndUpdate(userId, {cartData: {}})
+
+            res.json(new ApiResponse(200,{}, "Payment Successful"));
+        }else{
+            throw new ApiError(400, 'Payment Failed');
+        }
     } catch (error) {
         next(error);
     }
@@ -96,7 +106,8 @@ const allOrders = async (req: Request, res: Response, next: NextFunction): Promi
 //User Order data for frontend
 const userOrders = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
-        
+        const orders = await orderModel.find({})
+        res.status(200).json(new ApiResponse(200, orders, "Success"));
     } catch (error) {
         next(error);
     }
