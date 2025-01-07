@@ -37,7 +37,7 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
     }
 
     return (
-       <div className="min-h-screen bg-slate-700 flex items-center justify-center">
+       <div className="min-h-screen  flex items-center justify-center">
             <div className="bg-white shadow-md rounded-lg px-8 py-6 max-w-md">
                 <h1 className="text-2xl font-bold mb-4">Admin Panel</h1>
                 <form onSubmit={onSubmitHandler}>

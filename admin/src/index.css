@@ -8,6 +8,10 @@
   font-family: Outfit;
 }
 
+.bgColor{
+  background-color: #f6f2e7;
+}
+
 select,
 input,
 textarea {
