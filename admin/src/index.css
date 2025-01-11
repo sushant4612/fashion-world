@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +7,11 @@
 
 * {
   font-family: Outfit;
+}
+
+.logo{
+  font-family: "Dancing Script", serif;
+  font-optical-sizing: auto;
 }
 
 .bgColor{
