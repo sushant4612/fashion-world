@@ -22,7 +22,8 @@ const List: React.FC<ListProps> = ({ token }) => {
         try {
           const response = await axios.get(`${backendUrl}/api/product/list`);
           if (response.data.success) {
-            setList(response.data.products);
+            setList(response.data.data);
+            console.log(response.data);
           } else {
             toast.error(response.data.message);
           }
