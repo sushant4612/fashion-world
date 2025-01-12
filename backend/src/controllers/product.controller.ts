@@ -18,13 +18,15 @@ const addProduct = async (req: Request<{},{},AddProductDto>, res: Response, next
 
         const images = [image1, image2, image3, image4].filter((item): item is Express.Multer.File => item !== undefined);
 
-        let imagesUrl = await Promise.all(
-            images.map(async (item) => {
-                const result = cloudinary.uploader.upload(item.path,
-                    {resource_type: 'image'}
-                )
+        const imagesUrl: string[] = await Promise.all(
+            images.map(async (item: Express.Multer.File): Promise<string> => {
+              const result = await cloudinary.uploader.upload(item.path, {
+                resource_type: "image",
+              });              
+              return result.secure_url;
             })
-        )
+        );
+        
 
         const productData = {
             name,
