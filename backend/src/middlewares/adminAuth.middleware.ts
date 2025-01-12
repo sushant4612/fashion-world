@@ -14,7 +14,7 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction): Promi
             throw new ApiError(404, "JWT_SECRET is not defined in environment variables")
         }
         const secret = process.env.JWT_SECRET
-        const token_decode = jwt.verify(token, secret) as jwt.JwtPayload;
+        const token_decode = jwt.verify(token, secret) as string;
 
 
         const adminEmail = process.env.ADMIN_EMAIL;
@@ -23,8 +23,9 @@ const adminAuth = async (req: Request, res: Response, next: NextFunction): Promi
         if (!adminEmail || !adminPassword) {
             throw new ApiError(500, "Admin credentials are not defined in environment variables");
         }
+        const comp: string = adminEmail + adminPassword;
 
-        if (token_decode.email !== adminEmail || token_decode.password !== adminPassword) {
+        if (token_decode !== comp) {
             return res.status(401).json(new ApiError(401, "Not Authorized Login Again"));
         }
         next()

@@ -21,7 +21,8 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
             })
 
             if(response.data.success){
-                setToken(response.data.token);
+                
+                setToken(response.data.data);
                 toast.success('Login successful!')
             }else{
                 toast.error(response.data.message)

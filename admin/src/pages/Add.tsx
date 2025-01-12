@@ -13,6 +13,8 @@ const Add: React.FC<AddProps> = ({ token }) => {
   const [image2, setImage2] = useState<File | null>(null);
   const [image3, setImage3] = useState<File | null>(null);
   const [image4, setImage4] = useState<File | null>(null);
+  console.log(token);
+  
 
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
