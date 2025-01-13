@@ -63,7 +63,7 @@ const listProducts = async (req: Request, res: Response, next: NextFunction):Pro
 const removeProducts = async (req: Request<{},{},{id: string}>, res: Response, next: NextFunction):Promise<any> => {
     try {
         const {id} = req.body;
-        await productModel.findByIdAndDelete();
+        await productModel.findByIdAndDelete(id);
         res.status(200).json(new ApiResponse(200,{}, 'Deleted Successfully'))
     } catch (error) {
         next(error);
