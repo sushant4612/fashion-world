@@ -34,7 +34,7 @@ const addProduct = async (req: Request<{},{},AddProductDto>, res: Response, next
             category,
             price: Number(price),
             subCategory,
-            bestseller: bestseller === true ? true : false,
+            bestseller: bestseller === "true" ? true : false,
             sizes: Array.isArray(sizes) ? sizes : JSON.parse(sizes),
             image : imagesUrl,
             date : Date.now()

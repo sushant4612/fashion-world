@@ -34,7 +34,7 @@ const Add: React.FC<AddProps> = ({ token }) => {
       formData.append('price', price);
       formData.append('category', category);
       formData.append('subCategory', subCategory);
-      formData.append('bestseller', JSON.stringify(bestseller));
+      formData.append('bestseller', bestseller ? 'true' : 'false');
       formData.append('sizes', JSON.stringify(sizes));
 
       if (image1) formData.append('image1', image1);

@@ -5,5 +5,5 @@ export default interface AddProductDto{
     category: string;
     subCategory: string;
     sizes: Array<any>;
-    bestseller: Boolean;
+    bestseller: string;
 }
