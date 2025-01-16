@@ -1,5 +1,6 @@
 import React from 'react';
 import { assets } from '../assets/assets';
+import { NavLink } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   return (
@@ -15,12 +16,18 @@ const Hero: React.FC = () => {
             Discover the Latest Arrivals
           </h1>
           <div className="flex items-center gap-3 mt-4 justify-center sm:justify-start">
-            <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition duration-300">
-              Shop Now
-            </button>
-            <p className="font-semibold text-sm md:text-base underline cursor-pointer hover:text-gray-600">
-              Learn More
-            </p>
+            <NavLink to={'/collection'}>
+              <button className="px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition duration-300">
+                Shop Now
+              </button>
+            </NavLink>
+            
+            <NavLink to={'/about'}>
+              <p className="font-semibold text-sm md:text-base underline cursor-pointer hover:text-gray-600">
+                Learn More
+              </p>
+            </NavLink>
+            
           </div>
         </div>
       </div>
