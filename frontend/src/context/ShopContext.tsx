@@ -9,7 +9,7 @@ interface CartItem{
     };
 }
 
-interface Product{
+export interface Product{
     _id: string;
     price: number;
     [key: string]: any
