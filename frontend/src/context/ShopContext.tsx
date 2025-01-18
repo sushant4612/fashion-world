@@ -121,8 +121,10 @@ const ShopContextProvider: React.FC<ShopContextProviderProps> = ({ children }) =
     };
 
     const getProductsData = async () => {
-        try {
-          const response = await axios.get(`${backendUrl}/api/product/list`);
+      
+      try {
+        const response = await axios.get(`${backendUrl}/api/product/list`);
+        console.log(backendUrl);
           if (response.data.success) {
             setProducts(response.data.data);
           } else {
