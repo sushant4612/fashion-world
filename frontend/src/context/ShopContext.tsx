@@ -35,19 +35,20 @@ interface ShopContextValue{
     setCartItem: React.Dispatch<React.SetStateAction<CartItem>>;
 }
 
-export const ShopContext = createContext<ShopContextValue | undefined>(undefined);
 
 interface ShopContextProviderProps{
-    children: ReactNode;
+  children: ReactNode;
 }
 
+export const ShopContext = createContext({} as ShopContextValue);
+
 const ShopContextProvider: React.FC<ShopContextProviderProps> = ({ children }) => {
-    const currency = "$";
-    const delivery_fee = 10;
-    const backendUrl = import.meta.env.VITE_BACKEND_URL as string;
-    const [search, setSearch] = useState<string>("");
-    const [showSearch, setShowSearch] = useState<boolean>(false);
-    const [cartItem, setCartItem] = useState<CartItem>({});
+  const currency = "$";
+  const delivery_fee = 10;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL as string;
+  const [search, setSearch] = useState<string>("");
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [cartItem, setCartItem] = useState<CartItem>({});
     const navigate = useNavigate();
     const [products, setProducts] = useState<Product[]>([]);
     const [token, setToken] = useState<string>("");
