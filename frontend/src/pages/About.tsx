@@ -3,43 +3,80 @@ import Title from '../components/Title';
 import { assets } from '../assets/assets';
 import NewsLetter from '../components/NewsLetter';
 
-const Contact: React.FC = () => {
+const About: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Title Section */}
-      <div className="text-center text-2xl font-bold pt-10 border-t border-gray-200">
-        <Title text1="CONTACT" text2="US" />
+      {/* About Us Header */}
+      <div className="text-3xl font-bold text-center pt-12 border-t border-gray-300">
+        <Title text1="ABOUT" text2="US" />
       </div>
 
-      {/* Contact Details Section */}
-      <div className="my-10 flex flex-col md:flex-row gap-10 mb-28 items-center">
-        {/* Image */}
-        <img
-          className="w-full md:max-w-md rounded-lg shadow-lg"
-          src={assets.contact_img}
-          alt="Contact Us"
-        />
+      {/* About Us Section */}
+      <div className="my-16 flex flex-col md:flex-row gap-16 items-center">
+        {/* Image Section */}
+        <div className="w-full md:w-1/2">
+          <img
+            className="w-full max-w-lg mx-auto rounded-xl shadow-lg"
+            src={assets.about_img}
+            alt="About Us"
+          />
+        </div>
 
-        {/* Contact Information */}
-        <div className="flex flex-col justify-center items-start gap-6">
-          <p className="font-semibold text-2xl text-gray-700">Our Store</p>
+        {/* Text Content Section */}
+        <div className="flex flex-col gap-6 text-gray-700 md:w-1/2">
+          <p>
+            Welcome to our company, a trusted name in delivering excellence and
+            innovation. Over the years, we’ve established ourselves as a
+            leader in providing high-quality products and services that meet
+            the evolving needs of our customers.
+          </p>
+          <p>
+            From humble beginnings, we have grown into a dynamic organization,
+            driven by a passion for creating value. Our commitment to quality
+            and customer satisfaction remains at the heart of everything we do.
+          </p>
+          <h3 className="text-xl font-semibold text-gray-800">Our Mission</h3>
+          <p>
+            Our mission is to empower individuals and businesses by delivering
+            products and services that inspire and elevate. We aim to foster a
+            culture of trust, innovation, and excellence that benefits our
+            customers, employees, and communities.
+          </p>
+        </div>
+      </div>
+
+      {/* Why Choose Us Header */}
+      <div className="text-2xl font-bold text-center py-6">
+        <Title text1="WHY" text2="CHOOSE US" />
+      </div>
+
+      {/* Why Choose Us Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <div className="border border-gray-300 rounded-lg p-8 shadow-md hover:shadow-lg transition-shadow">
+          <h4 className="text-lg font-semibold mb-4">Quality Assurance</h4>
           <p className="text-gray-600">
-            123 MG Road,
-            <br />
-            Pune, Maharastra, India - 412101
+            We are dedicated to maintaining the highest standards of quality.
+            Every product we offer is carefully crafted and thoroughly tested
+            to ensure it meets your expectations.
           </p>
+        </div>
+        <div className="border border-gray-300 rounded-lg p-8 shadow-md hover:shadow-lg transition-shadow">
+          <h4 className="text-lg font-semibold mb-4">Convenience</h4>
           <p className="text-gray-600">
-            Tel: +91 9005 003210
-            <br />
-            Email: <a href="mailto:admin@xyz.com" className="text-blue-600 hover:underline">admin@xyz.com</a>
+            Our user-friendly approach ensures you get what you need when you
+            need it. We prioritize making your experience smooth and hassle-free,
+            from ordering to delivery.
           </p>
-          <p className="text-gray-600 font-medium">Careers at Forever</p>
-          <p className="text-gray-500">
-            Learn more about our teams and job openings by exploring opportunities.
+        </div>
+        <div className="border border-gray-300 rounded-lg p-8 shadow-md hover:shadow-lg transition-shadow">
+          <h4 className="text-lg font-semibold mb-4">
+            Exceptional Customer Service
+          </h4>
+          <p className="text-gray-600">
+            Our team is always here to help. Whether you have questions or need
+            support, we are committed to providing prompt, reliable assistance
+            to ensure your satisfaction.
           </p>
-          <button className="border border-gray-800 px-8 py-3 text-sm font-medium text-gray-800 hover:bg-gray-800 hover:text-white transition-all duration-300 rounded-md">
-            Explore Jobs
-          </button>
         </div>
       </div>
 
@@ -49,4 +86,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact;
+export default About;
