@@ -16,7 +16,7 @@ const About: React.FC = () => {
         {/* Image Section */}
         <div className="w-full md:w-1/2">
           <img
-            className="w-full max-w-lg mx-auto rounded-xl shadow-lg"
+            className="w-full max-w-xs mx-auto rounded-xl shadow-lg"
             src={assets.about_img}
             alt="About Us"
           />
