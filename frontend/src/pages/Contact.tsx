@@ -26,9 +26,9 @@ const Contact: React.FC = () => {
         <div className="w-full md:w-1/2 space-y-6">
           <h2 className="text-2xl font-semibold text-gray-800">Our Store</h2>
           <p className="text-gray-600">
-            5789 Willsons Station,
+           Mg Road
             <br />
-            New York, NY, USA
+            Pune, Maharashtra
           </p>
           <p className="text-gray-600">
             <span className="font-medium">Tel:</span> (415) 555-022-333
@@ -42,12 +42,12 @@ const Contact: React.FC = () => {
             </a>
           </p>
           <div>
-            <h3 className="text-lg font-medium text-gray-800">Careers at Forever</h3>
+            <h3 className="text-lg font-medium text-gray-800">Careers at Fashion World</h3>
             <p className="text-gray-600">
               Learn more about our teams and exciting job openings.
             </p>
           </div>
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 transition-all">
+          <button className="px-6 py-3 bg-black text-white rounded-md shadow-md hover:bg-gray-800 transition-all">
             Explore Jobs
           </button>
         </div>
