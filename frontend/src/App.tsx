@@ -14,6 +14,7 @@ import PlaceOrder from "./pages/PlaceOrder"
 import Orders from "./pages/Orders"
 import Verify from "./pages/Verify"
 import 'react-toastify/dist/ReactToastify.css';
+import { Footer } from "./components/Footer"
 
 const App: React.FC = () => {
   return (
@@ -33,6 +34,7 @@ const App: React.FC = () => {
         <Route path='/orders' element={<Orders/>}/>
         <Route path='/verify' element={<Verify/>}/>
       </Routes>
+      <Footer/>
     </div>
   )
 }
