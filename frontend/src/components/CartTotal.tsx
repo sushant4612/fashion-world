@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 
-// Define the structure of the ShopContext
 interface ShopContextType {
   currency: string;
   delivery_fee: number;
@@ -10,12 +9,10 @@ interface ShopContextType {
 }
 
 const CartTotal: React.FC = () => {
-  // Extracting values from the context
   const { currency, delivery_fee, getCartAmount } = useContext(
     ShopContext
   ) as ShopContextType;
 
-  // Calculating total amount
   const cartAmount = getCartAmount();
   const totalAmount = cartAmount === 0 ? 0 : cartAmount + delivery_fee;
 
