@@ -12,7 +12,6 @@ const LatestCollection:React.FC = () => {
     
     
     setLatestProduct(products.slice(0,10));
-    console.log(products);
   }, [products])
   return (
     <div className='my-10'>

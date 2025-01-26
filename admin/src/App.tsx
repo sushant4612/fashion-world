@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import Add from './pages/Add';
 import { ToastContainer } from 'react-toastify';
 import List from './pages/List';
+import Order from './pages/Order';
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const currency = '$';
@@ -34,7 +35,7 @@ function App() {
               <Routes>
                 <Route path='/add' element={<Add token={token} />} />
                 <Route path='/list' element={<List token={token} />} />
-                {/* <Route path='/orders' element={<Order token={token} />} /> */}
+                <Route path='/orders' element={<Order token={token} />} />
               </Routes>
             </div>
           </div>

@@ -59,19 +59,23 @@ const placeOrderRazorpay =  async (req: Request<{},{},PlaceOrderDto>, res: Respo
 
         const newOrder: any = new orderModel(orderData);
         await newOrder.save();
+        console.log("1st");
+        
 
         const options = {
             amount: amount * 100 ,
             currency: currency.toUpperCase(),
             receipt: newOrder._id.toString()
         }
+        console.log("2nd");
+        
 
         await razorpayInstance.orders.create(options, (error, order) => {
             if(error){
                 throw new ApiError(400, "Error in Razorpay", [error]);
             }
+            res.json({success: true, order})
         })
-
     } catch (error) {
         next(error);
     }

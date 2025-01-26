@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-
-import { Product, ShopContext } from '../context/ShopContext'
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Product, ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
-// import RelatedProducts from '../components/RelatedProducts';
 
-const ProductComp:React.FC = () => {
-  const {productId} = useParams<{productId: string}>();
-  const {products, currency, addToCart} = useContext(ShopContext);
+const ProductComp: React.FC = () => {
+  const { productId } = useParams<{ productId: string }>();
+  const { products, currency, addToCart } = useContext(ShopContext);
+  const navigate = useNavigate();
   const [productData, setProductData] = useState<Product | null>(null);
   const [image, setImage] = useState<string>('');
   const [size, setSize] = useState<string>('');
@@ -15,13 +14,24 @@ const ProductComp:React.FC = () => {
   useEffect(() => {
     const fetchProductData = () => {
       const product = products.find((item: Product) => item._id === productId);
-      if(product){
+      if (product) {
         setProductData(product);
         setImage(product.image[0] || '');
       }
-    }
+    };
     fetchProductData();
-  },[products, productId])
+  }, [products, productId]);
+
+  const handleAddToCart = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+    if (productData) {
+      addToCart(productData._id, size);
+    }
+  };
 
   if (!productData) {
     return <div className="opacity-0"></div>;
@@ -29,20 +39,18 @@ const ProductComp:React.FC = () => {
 
   return (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
-      {/* Product Data */}
       <div className="flex flex-col sm:flex-row gap-12">
-        {/* Product Images */}
         <div className="flex-1 flex flex-col-reverse sm:flex-row gap-3">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll sm:w-[18.7%] w-full">
             {productData.image.map((item: string, index: number) => (
               <img
-              key={index}
-              src={item}
-              alt="Product"
-              onClick={() => setImage(item)}
-              className={`w-[24%] sm:w-full sm:mb-3 cursor-pointer rounded-md ${
-                image === item ? 'ring-2 ring-orange-500' : ''
-              }`}
+                key={index}
+                src={item}
+                alt="Product"
+                onClick={() => setImage(item)}
+                className={`w-[24%] sm:w-full sm:mb-3 cursor-pointer rounded-md ${
+                  image === item ? 'ring-2 ring-orange-500' : ''
+                }`}
               />
             ))}
           </div>
@@ -51,7 +59,6 @@ const ProductComp:React.FC = () => {
           </div>
         </div>
 
-        {/* Product Info */}
         <div className="flex-1">
           <h1 className="font-semibold text-2xl mt-2">{productData.name}</h1>
           <div className="flex items-center gap-1 mt-2">
@@ -82,7 +89,7 @@ const ProductComp:React.FC = () => {
             </div>
           </div>
           <button
-            onClick={() => addToCart(productData._id, size)}
+            onClick={handleAddToCart}
             className="bg-black text-white px-8 py-3 text-sm rounded-md shadow-md hover:bg-gray-800 transition"
           >
             ADD TO CART
@@ -96,7 +103,6 @@ const ProductComp:React.FC = () => {
         </div>
       </div>
 
-      {/* Description & Review Section */}
       <div className="mt-20">
         <div className="flex">
           <button className="border px-5 py-3 text-sm font-semibold">Description</button>
@@ -112,11 +118,8 @@ const ProductComp:React.FC = () => {
           </p>
         </div>
       </div>
-
-      {/* Related Products */}
-      {/* <RelatedProducts category={productData.category} subCategory={productData.subCategory} /> */}
     </div>
-  )
-}
+  );
+};
 
-export default ProductComp
+export default ProductComp;

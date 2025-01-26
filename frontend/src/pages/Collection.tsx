@@ -9,7 +9,7 @@ import { ProductItem } from '../components/ProductItem';
 const Collection: React.FC = () => {
   const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState<boolean>(false);
-  const [filterProduct, setFilterProduct] = useState<Product[]>([]);
+  const [filterProduct, setFilterProduct] = useState<Product[]>(products); // Initialize with all products
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
   const [sortType, setSortType] = useState<string>('relevant');
@@ -54,18 +54,17 @@ const Collection: React.FC = () => {
         sortedProducts.sort((a, b) => b.price - a.price);
         break;
       default:
-        applyFilter();
         break;
     }
     setFilterProduct(sortedProducts);
   };
 
   useEffect(() => {
-    applyFilter();
+    applyFilter(); // Apply filters whenever category, subCategory, or search changes
   }, [category, subCategory, search, showSearch, products]);
 
   useEffect(() => {
-    sortProduct();
+    sortProduct(); // Sort products whenever sortType changes
   }, [sortType]);
 
   return (
@@ -137,15 +136,19 @@ const Collection: React.FC = () => {
 
         {/* Product Items */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filterProduct.map((item) => (
-            <ProductItem
-              key={item._id}
-              name={item.name}
-              id={item._id}
-              price={item.price}
-              image={item.image}
-            />
-          ))}
+          {filterProduct.length > 0 ? (
+            filterProduct.map((item) => (
+              <ProductItem
+                key={item._id}
+                name={item.name}
+                id={item._id}
+                price={item.price}
+                image={item.image}
+              />
+            ))
+          ) : (
+            <p>No products available.</p>
+          )}
         </div>
       </div>
     </div>
