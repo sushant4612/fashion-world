@@ -17,23 +17,29 @@ const Login: React.FC = () => {
     try {
       if (currentState === 'Sign Up') {
         const response = await axios.post(`${backendUrl}/api/user/register`, { name, email, password });
+        
         if (response.data.success) {
-          setToken(response.data.token);
-          localStorage.setItem('token', response.data.token);
+          toast.success(response.data.message);
+          setToken(response.data.data);
+          localStorage.setItem('token',response.data.data);
         } else {
-          toast.error(response.data.message);
+          toast.error(response.data.errors.message);
         }
       } else {
         const response = await axios.post(`${backendUrl}/api/user/login`, { email, password });
         if (response.data.success) {
-          setToken(response.data.token);
-          localStorage.setItem('token', response.data.token);
+          toast.success(response.data.message);
+          setToken(response.data.data);
+          localStorage.setItem('token', response.data.data);
         } else {
           toast.error(response.data.message);
         }
       }
     } catch (error: any) {
-      toast.error(error.message || 'An error occurred');
+      console.log(error);
+      const message = error.response.data.errors[0] !== undefined ? error.response.data.errors[0].message : error.response.data.message
+      
+      toast.error(message || 'An error occurred');
     }
   };
 

@@ -138,12 +138,14 @@ const ShopContextProvider: React.FC<ShopContextProviderProps> = ({ children }) =
 
     const getUserCart = async (userToken: string) => {
         try {
-          const response = await axios.post(`${backendUrl}/api/cart/get`, {}, { headers: { token: userToken } });
+          console.log("token", userToken);
+          const response = await axios.get(`${backendUrl}/api/cart/get`, { headers: { token: userToken } });
+          
           if (response.data.success) {
             setCartItem(response.data.cartData);
           }
         } catch (error: any) {
-          console.error(error);
+          console.error("hello" + error);
           toast.error(error.message);
         }
     };
