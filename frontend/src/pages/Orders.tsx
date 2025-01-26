@@ -34,7 +34,7 @@ const Orders: React.FC = () => {
 
       if (res.data.success) {
         let allOrderItem: OrderItem[] = [];
-        res.data.order.forEach((order: any) => {
+        res.data.data.forEach((order: any) => {
           order.items.forEach((item: any) => {
             item['status'] = order.status;
             item['payment'] = order.payment;

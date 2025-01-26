@@ -20,7 +20,6 @@ const razorpayInstance = new Razorpay({
 const placeOrder = async (req: Request<{},{},PlaceOrderDto>, res: Response, next: NextFunction): Promise<any> => {
     try {
         const {userId, items, amount, address} = req.body;
-
         const orderData = {
             userId,
             items,
@@ -34,10 +33,11 @@ const placeOrder = async (req: Request<{},{},PlaceOrderDto>, res: Response, next
         const newOrder = new orderModel(orderData);
         await newOrder.save();
         
-        await userModel.findById(userId, {cartData: {}})
-
+        await userModel.findByIdAndUpdate(userId, {cartData: {}})
         res.status(201).json(new ApiResponse(201, {}, "Product Placed"))
     } catch (error) {
+        console.log(error);
+        
         next(error);
     }
 }
